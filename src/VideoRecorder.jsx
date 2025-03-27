@@ -52,14 +52,11 @@ export default function VideoRecorder({handleSubmit, total}) {
         localVideoChunks.push(event.data)
     }
     setVideoChunks(localVideoChunks)
-    window.scrollTo({
-      top: 1000,
-      behavior: 'smooth'
-    })
   }
 
   const stopRecording = () => {
     setRecordingStatus("finished")
+    mediaRecorder.current.stop()
     mediaRecorder.current.onstop = () => {
         const videoBlob = new Blob(videoChunks, {type: mimeType})
         const videoUrl = URL.createObjectURL(videoBlob)
@@ -77,23 +74,22 @@ export default function VideoRecorder({handleSubmit, total}) {
 						<video className="video" src={recordedVideo} controls/>
 				)}
 			</div>
-
       <div className="submit">
-
         {!permission ? (
           <button type="button" id="cameraButton" onClick={getCameraPermission}>
             Connect Camera
           </button>
           ) : ( null )}
-
         {permission && recordingStatus === "inactive" ? (
-          <button type="button" onClick={startRecording}>Start question</button>
+          <button type="button" onClick={startRecording}>
+            Start question
+          </button>
         ) : ( null )}
-
         {recordingStatus === "recording" ? (
-          <button type="button" onClick={stopRecording}>Stop recording and upload answer</button>
+          <button type="button" onClick={stopRecording}>
+            Stop recording and upload answer
+          </button>
         ) : ( null )}
-
         {recordingStatus != "finished" ? (
           <button type="button" id="noSubmit">
             Next question
@@ -106,7 +102,6 @@ export default function VideoRecorder({handleSubmit, total}) {
             Next question
           </button>
         )}
-
       </div>
     </>
   )
