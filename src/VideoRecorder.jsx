@@ -52,11 +52,14 @@ export default function VideoRecorder({handleSubmit, total}) {
         localVideoChunks.push(event.data)
     }
     setVideoChunks(localVideoChunks)
+    window.scrollTo({
+      top: 1000,
+      behavior: 'smooth'
+    })
   }
 
   const stopRecording = () => {
     setRecordingStatus("finished")
-    mediaRecorder.current.stop()
     mediaRecorder.current.onstop = () => {
         const videoBlob = new Blob(videoChunks, {type: mimeType})
         const videoUrl = URL.createObjectURL(videoBlob)
