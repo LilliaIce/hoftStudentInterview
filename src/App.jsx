@@ -34,18 +34,14 @@ export default function App() {
     const month = now.getMonth()
     const day = now.getDay()
     const year = now.getFullYear()
-    let currentTime = `${month}-${day}-${year}-${hours}:${minutes}:${seconds}`
-    let stringCount = toString(count)
-    let fName = firstName.current
-    let lName = lastName.current
-    link.download = {stringCount} + "_" + {lName} + "_" + {fName}
-    // + "-" + {currentTime}
+    let currentTime = `${month}-${day}-${year}_${hours}-${minutes}-${seconds}`
+    link.download = "question" + count + "_" + lastName.current + "_" + 
+      firstName.current + "_" + currentTime
     link.href = recordedVideo
     link.click()
   }
 
-  if (!start) 
-  {
+  if (!start) {
     return (
       <>
         <Header/>
@@ -59,44 +55,40 @@ export default function App() {
       </>
     )
   }
-  else if (!finish && level == "beginner") 
-    {
-      return (
-        <>
-          <Header/>
-          <BeginnerQuestions
-            count={count}
-            handleSubmit={handleSubmit}
-          />
-        </>
-      )
-    }
-  else if (!finish && level == "intermediate") 
-    {
-      return (
-        <>
-          <Header/>
-          <IntermediateQuestions
-            count={count}
-            handleSubmit={handleSubmit}
-          />
-        </>
-      )
-    }
-  else if (!finish && level == "advanced") 
-    {
-      return (
-        <>
-          <Header/>
-          <AdvancedQuestions
-            count={count}
-            handleSubmit={handleSubmit}
-          />
-        </>
-      )
-    }
-  else
-  {
+  else if (!finish && level == "beginner") {
+    return (
+      <>
+        <Header/>
+        <BeginnerQuestions
+          count={count}
+          handleSubmit={handleSubmit}
+        />
+      </>
+    )
+  }
+  else if (!finish && level == "intermediate") {
+    return (
+      <>
+        <Header/>
+        <IntermediateQuestions
+          count={count}
+          handleSubmit={handleSubmit}
+        />
+      </>
+    )
+  }
+  else if (!finish && level == "advanced") {
+    return (
+      <>
+        <Header/>
+        <AdvancedQuestions
+          count={count}
+          handleSubmit={handleSubmit}
+        />
+      </>
+    )
+  }
+  else {
     return (
       <>
         <Header/>

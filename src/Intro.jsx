@@ -14,7 +14,7 @@ export default function Intro({startTest, setLevel, firstName, lastName, emailAd
     if ((lName.value != null && lName.value != "") || lName.disabled === true
         && (fName != null && fName != "") && (email != null && email != "")) {
       firstName.current = fName
-      lastName.current = lName
+      lastName.current = lName.value
       emailAddress.current = email
       if (beginner === true) {
         startTest(true)
