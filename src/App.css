@@ -1,0 +1,138 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img {
+    width: 250px;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
+
+div {
+  clear: both;
+}
+
+div#userInfoDiv,
+div#levelDiv {
+  padding:1em;
+}
+
+h1 {
+  font-size: 1.4em;
+  font-weight: bold;
+  line-height: 1em;
+}
+
+h2 {
+  font-weight: bold;
+  margin: 0em;
+  padding: 0.2em;
+  font-size: 1.2em;
+}
+
+p {
+  font-size: 1em;
+  line-height: 1.2em;
+  margin: 0.5em;
+}
+
+div.checkBox {
+  float: right;
+  padding-bottom: 0.5em;
+}
+
+div.inputField {
+  padding-bottom: 1em;
+}
+
+div.inputField > label {
+  float: left;
+  padding-right: 1em;
+}
+
+div.inputField > input {
+  float: right;
+}
+
+div#levelDiv > div {
+  display: flex;
+  width: 6em;
+}
+
+div#levelDiv > div {
+  justify-content: right;
+  margin: auto;
+}
+
+button#noSubmit {
+  background-color: grey;
+  border: 1 solid black;
+}
+
+button:not(button#videoButton) {
+  background-color: navy;
+  width: 12em;
+  font-weight: bold;
+  color: white;
+  padding: 0.3em;
+  margin: auto;
+  margin-top: 0.3em;
+  margin-bottom: 0.3em;
+}
+
+button#videoButton {
+  padding: 0em;
+  margin: 0em;
+}
+
+
+
+div.submit {
+  display: flex;
+  clear: both;
+  flex-direction: column;
+  justify-content: center;
+}
+
+div.videoDiv {
+  margin-bottom: 1em;
+  margin-top: 1em;
+}
+
+.video {
+  width: 500px;
+  display: block;
+  text-align: center;
+  margin: auto;
+  border: solid 1px navy;
+}
+
