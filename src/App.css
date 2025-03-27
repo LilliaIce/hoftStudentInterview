@@ -93,12 +93,7 @@ div#levelDiv > div {
   margin: auto;
 }
 
-button#noSubmit {
-  background-color: grey;
-  border: 1 solid black;
-}
-
-button:not(button#videoButton) {
+button {
   background-color: navy;
   width: 12em;
   font-weight: bold;
@@ -110,11 +105,16 @@ button:not(button#videoButton) {
 }
 
 button#videoButton {
-  padding: 0em;
-  margin: 0em;
+  background-color: none;
+  border: none;
+  width: auto;
+  padding: 0px;
 }
 
-
+button#noSubmit {
+  background-color: grey;
+  border: 1 solid black;
+}
 
 div.submit {
   display: flex;
