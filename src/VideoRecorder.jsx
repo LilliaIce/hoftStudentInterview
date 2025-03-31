@@ -80,11 +80,16 @@ export default function VideoRecorder({handleSubmit, total}) {
             Connect Camera
           </button>
           ) : ( null )}
-        {permission && recordingStatus === "inactive" ? (
+        {permission && !recordedVideo && recordingStatus === "inactive" ? (
           <button type="button" onClick={startRecording}>
             Start question
           </button>
-        ) : ( null )}
+        ) : null }
+        {permission && recordedVideo && recordingStatus === "inactive" ? (
+          <button type="button" id="noSubmit">
+            Start question
+          </button>
+        ) : null }
         {recordingStatus === "recording" ? (
           <button type="button" onClick={stopRecording}>
             Stop recording and upload answer
