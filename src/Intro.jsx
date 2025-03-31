@@ -18,15 +18,15 @@ export default function Intro({startTest, setLevel, firstName, lastName, emailAd
       emailAddress.current = email
       if (beginner === true) {
         startTest(true)
-        setLevel("beginner")
+        setLevel("beginnerQuestionVideos")
       }
       else if (intermediate === true) {
         startTest(true)
-        setLevel("intermediate")
+        setLevel("intermediateQuestionVideos")
       }
       else if (advanced === true) {
         startTest(true)
-        setLevel("advanced")
+        setLevel("advancedQuestionVideos")
       }
       else {
         setMessage("Please select a level before proceeding")

@@ -3,31 +3,6 @@ import './App.css'
 import QuestionVideo from './QuestionVideo.jsx'
 import VideoRecorder from './VideoRecorder.jsx'
 
-/*
-AWS.config.update({
-  accessKeyId: "DO00JV9GL7CYLW8G8E3D",
-  secretAccessKey: "A+h2NgptkKly2VYNZxz7sRX/bfTWDDQkl1MWVMzwTFU",
-});
-
-const spacesEndpoint = new AWS.Endpoint("nyc3.digitaloceanspaces.com");
-
-const s3 = new AWS.S3({
-  endpoint: spacesEndpoint,
-});
-
-const videoSources = videoKeys.map((key) => {
-  const params = {
-    Bucket: "hoftfiles",
-    Key: `questionVideos/advancedQuestionVideos/${key}`,
-    Expires: 60 * 30,
-  };
-  return s3.getSignedUrl("getObject", params);
-});
-
-console.log(videoSources);
-let currentVideo = 6;
-*/
-
 const answerDurationMap = [
   6,
   31,
@@ -41,7 +16,6 @@ const answerDurationMap = [
   0
 ]
 
-/*
 const questionVideoMap = [
   "aqv1.mp4",
   "aqv2.MOV",
@@ -54,20 +28,28 @@ const questionVideoMap = [
   "aqv9.MOV",
   "endofInterview.MOV"
 ]
-*/
 
-const questionVideoMap = [
-  "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
-  "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
-  "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
-  "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
-  "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
-  "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
-  "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
-  "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
-  "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
-  "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"
-]
+AWS.config.update({
+  accessKeyId: "DO00JV9GL7CYLW8G8E3D",
+  secretAccessKey: "A+h2NgptkKly2VYNZxz7sRX/bfTWDDQkl1MWVMzwTFU",
+})
+
+const spacesEndpoint = new AWS.Endpoint("nyc3.digitaloceanspaces.com")
+
+const s3 = new AWS.S3({
+  endpoint: spacesEndpoint,
+})
+
+const videoSources = questionVideoMap.map((key) => {
+  const params = {
+    Bucket: "hoftfiles",
+    Key: `questionVideos/beginnerQuestionVideos/${key}`,
+    Expires: 60 * 30,
+  }
+  return s3.getSignedUrl("getObject", params)
+})
+
+console.log(videoSources)
 
 const extraContentMap = {
   1: "question 1",

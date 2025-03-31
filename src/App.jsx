@@ -55,7 +55,7 @@ export default function App() {
       </>
     )
   }
-  else if (!finish && level == "beginner") {
+  else if (!finish && level == "beginnerQuestionVideos") {
     return (
       <>
         <Header/>
@@ -66,7 +66,7 @@ export default function App() {
       </>
     )
   }
-  else if (!finish && level == "intermediate") {
+  else if (!finish && level == "intermediateQuestionVideos") {
     return (
       <>
         <Header/>
@@ -77,7 +77,7 @@ export default function App() {
       </>
     )
   }
-  else if (!finish && level == "advanced") {
+  else if (!finish && level == "advancedQuestionVideos") {
     return (
       <>
         <Header/>
