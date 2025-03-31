@@ -29,13 +29,19 @@ const questionVideoMap = [
   "endofInterview.MOV"
 ]
 
+const extraContentMap = {
+  1: "question 1",
+  2: "question 2",
+  3: "question 3",
+  4: "question 4"
+}
+
 AWS.config.update({
   accessKeyId: "DO00JV9GL7CYLW8G8E3D",
   secretAccessKey: "A+h2NgptkKly2VYNZxz7sRX/bfTWDDQkl1MWVMzwTFU",
 })
 
 const spacesEndpoint = new AWS.Endpoint("nyc3.digitaloceanspaces.com")
-
 const s3 = new AWS.S3({
   endpoint: spacesEndpoint,
 })
@@ -48,15 +54,7 @@ const videoSources = questionVideoMap.map((key) => {
   }
   return s3.getSignedUrl("getObject", params)
 })
-
 console.log(videoSources)
-
-const extraContentMap = {
-  1: "question 1",
-  2: "question 2",
-  3: "question 3",
-  4: "question 4"
-}
 
 export default function AdvancedQuestions({count, handleSubmit}) {
   const total = 10
@@ -68,10 +66,11 @@ export default function AdvancedQuestions({count, handleSubmit}) {
       <QuestionVideo
       videoLink={questionVideoMap[count-1]}
       />
-      <p>Extra content</p>
+      <p>{extraContentMap[count]}</p>
       <VideoRecorder
         handleSubmit={handleSubmit}
         total={total}
+        answerDuration={answerDurationMap[count-1]}
       />
     </>
   )

@@ -3,6 +3,7 @@ import './App.css'
 import QuestionVideo from './QuestionVideo.jsx'
 import VideoRecorder from './VideoRecorder.jsx'
 
+// In seconds
 const answerDurationMap = [
   6,
   11,
@@ -46,7 +47,6 @@ AWS.config.update({
 })
 
 const spacesEndpoint = new AWS.Endpoint("nyc3.digitaloceanspaces.com")
-
 const s3 = new AWS.S3({
   endpoint: spacesEndpoint,
 })
@@ -59,7 +59,6 @@ const videoSources = questionVideoMap.map((key) => {
   }
   return s3.getSignedUrl("getObject", params)
 })
-
 console.log(videoSources)
 
 export default function BeginnerQuestions({count, handleSubmit}) {
@@ -76,6 +75,7 @@ export default function BeginnerQuestions({count, handleSubmit}) {
       <VideoRecorder
         handleSubmit={handleSubmit}
         total={total}
+        answerDuration={answerDurationMap[count-1]}
       />
     </>
   )
