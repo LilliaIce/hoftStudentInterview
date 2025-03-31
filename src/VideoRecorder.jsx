@@ -6,14 +6,14 @@ export default function VideoRecorder({handleSubmit, total, answerDuration}) {
   const [stream, setStream] = useState(null)
   const [videoChunks, setVideoChunks] = useState([])
   const [recordedVideo, setRecordedVideo] = useState(null)
-  const now = useRef(null)
   let startTime = null
-  const [secondsPassed, setSecondsPassed] = useState(0)
+  const secondsPassed = useRef(0)
+  const [secondsLeft, setSecondsLeft] = useState(null)
   const intervalRef = useRef(null)
   const mediaRecorder = useRef(null)
   const liveVideoFeed = useRef(null)
   const mimeType = "video/webm";
-  let recordingText = `Recording ${answerDuration-secondsPassed} seconds left.`
+  let recordingText = `Recording ${secondsLeft} seconds left.`
   let uploadText = `Recording stopped. Answer video is being uploaded.\n` +
   `Please do not leave this page until the upload is finished.`
 
@@ -47,17 +47,6 @@ export default function VideoRecorder({handleSubmit, total, answerDuration}) {
     }
   }
 
-  const increment = () => {
-    if (startTime != null) {
-      setSecondsPassed(secondsPassed + 1)
-      console.log(`${secondsPassed}`)
-      if (secondsPassed === answerDuration) {
-        stopRecording()
-      }
-    }
-    return () => clearInterval(intervalRef.current)
-  }
-
   const startRecording = async () => {
     setRecordingStatus("recording")
     const media = new MediaRecorder(stream, {mimeType})
@@ -72,16 +61,26 @@ export default function VideoRecorder({handleSubmit, total, answerDuration}) {
     setVideoChunks(localVideoChunks)
 
     startTime = Date.now()
-    setSecondsPassed(0)
+    secondsPassed.current = 0
+    setSecondsLeft(answerDuration)
     clearInterval(intervalRef.current)
-    intervalRef.current = setInterval(increment, 1000)
+    
+    intervalRef.current = setInterval(() => {
+      if (startTime != null) {
+        secondsPassed.current = secondsPassed.current + 1
+        setSecondsLeft(answerDuration - secondsPassed.current)
+        console.log(`${secondsPassed.current}`)
+        if (secondsPassed.current === answerDuration) {
+          stopRecording()
+        }
+      }
+    }, 1000)
   }
 
   const stopRecording = () => {
     setRecordingStatus("inactive")
     startTime = null
-    now.current = null
-    setSecondsPassed(0)
+    secondsPassed.current = 0
     mediaRecorder.current.stop()
     mediaRecorder.current.onstop = () => {
       const videoBlob = new Blob(videoChunks, {type: mimeType})
@@ -105,7 +104,7 @@ export default function VideoRecorder({handleSubmit, total, answerDuration}) {
           <p>{uploadText}</p>
 				) : null }            
         {recordingStatus == "recording" ? (
-          <p>{recordingText}\n{answerDuration}\n{secondsPassed}</p>
+          <p>{recordingText}</p>
         ) : null }        
 			</div>
       <div className="submit">
