@@ -5,7 +5,8 @@ import Header from './Header.jsx'
 import Questions from './Questions.jsx'
 
 export default function App() {
-  const [testState, setTestState] = useState("starting")
+  const [start, startTest] = useState(false)
+  const [finish, setFinished] = useState(false)
   const [level, setLevel] = useState(null)
   const [count, setCount] = useState(1)
   let firstName = useRef("a")
@@ -32,12 +33,29 @@ export default function App() {
         <Header/>
         <Questions
           count={count}
-          setCount={setCount}
-          setTestState={setTestState}
-          level={level}
-          firstName={firstName}
-          lastName={lastName}
-          emailAddress={emailAddress}
+          handleSubmit={handleSubmit}
+        />
+      </>
+    )
+  }
+  else if (!finish && level == "intermediateQuestionVideos") {
+    return (
+      <>
+        <Header/>
+        <IntermediateQuestions
+          count={count}
+          handleSubmit={handleSubmit}
+        />
+      </>
+    )
+  }
+  else if (!finish && level == "advancedQuestionVideos") {
+    return (
+      <>
+        <Header/>
+        <AdvancedQuestions
+          count={count}
+          handleSubmit={handleSubmit}
         />
       </>
     )
