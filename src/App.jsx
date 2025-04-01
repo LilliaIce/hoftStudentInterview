@@ -2,53 +2,22 @@ import { useState, useRef } from 'react'
 import './App.css'
 import Intro from './Intro.jsx'
 import Header from './Header.jsx'
-import BeginnerQuestions from './BeginnerQuestions.jsx'
-import IntermediateQuestions from './IntermediateQuestions.jsx'
-import AdvancedQuestions from './AdvancedQuestions.jsx'
+import Questions from './Questions.jsx'
 
 export default function App() {
-  const [recordingStatus, setRecordingStatus] = useState("inactive")
-  const [recordedVideo, setRecordedVideo] = useState(null)
-  const [start, startTest] = useState(false)
-  const [finish, setFinished] = useState(false)
+  const [testState, setTestState] = useState("starting")
   const [level, setLevel] = useState(null)
   const [count, setCount] = useState(1)
   let firstName = useRef("a")
   let lastName = useRef("b")
-  let emailAddress = useRef(null)
+  let emailAddress = useRef("email")
 
-  const handleSubmit = (total, recordedVideo) => {
-    if (count < total) {
-      setCount(count + 1)
-    }
-    else {
-      setFinished(true)
-    }
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    })
-    let link = document.createElement("a")
-    const now = new Date
-    const hours = now.getHours()
-    const minutes = now.getMinutes()
-    const seconds = now.getSeconds()
-    const month = now.getMonth()
-    const day = now.getDay()
-    const year = now.getFullYear()
-    let currentTime = `${month}-${day}-${year}_${hours}-${minutes}-${seconds}`
-    link.download = "question" + count + "_" + lastName.current + "_" + 
-      firstName.current + "_" + currentTime
-    link.href = recordedVideo
-    link.click()
-  }
-
-  if (!start) {
+  if (testState == "starting") {
     return (
       <>
         <Header/>
         <Intro
-          startTest={startTest}
+          setTestState={setTestState}
           setLevel={setLevel}
           firstName={firstName}
           lastName={lastName}
@@ -57,47 +26,17 @@ export default function App() {
       </>
     )
   }
-  else if (!finish && level == "beginnerQuestionVideos") {
+  else if (testState == "in progress") {
     return (
       <>
         <Header/>
-        <BeginnerQuestions
+        <Questions
           count={count}
-          handleSubmit={handleSubmit}
-          recordedVideo={recordedVideo}
-          setRecordedVideo={setRecordedVideo}
-          recordingStatus={recordingStatus}
-          setRecordingStatus={setRecordingStatus}
-        />
-      </>
-    )
-  }
-  else if (!finish && level == "intermediateQuestionVideos") {
-    return (
-      <>
-        <Header/>
-        <IntermediateQuestions
-          count={count}
-          handleSubmit={handleSubmit}
-          recordedVideo={recordedVideo}
-          setRecordedVideo={setRecordedVideo}
-          recordingStatus={recordingStatus}
-          setRecordingStatus={setRecordingStatus}
-        />
-      </>
-    )
-  }
-  else if (!finish && level == "advancedQuestionVideos") {
-    return (
-      <>
-        <Header/>
-        <AdvancedQuestions
-          count={count}
-          handleSubmit={handleSubmit}
-          recordedVideo={recordedVideo}
-          setRecordedVideo={setRecordedVideo}
-          recordingStatus={recordingStatus}
-          setRecordingStatus={setRecordingStatus}
+          setCount={setCount}
+          level={level}
+          firstName={firstName}
+          lastName={lastName}
+          emailAddress={emailAddress}
         />
       </>
     )

@@ -1,8 +1,6 @@
-import { useState, useRef } from 'react'
-
 export default function RecordingButtons({permission, getCameraPermission,
     startRecording, stopRecording, recordedVideo, recordingStatus}) {
-  
+
   return (
     <div className="recording">
       {!permission ? (

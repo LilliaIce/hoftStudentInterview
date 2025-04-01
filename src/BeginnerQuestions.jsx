@@ -87,7 +87,7 @@ export default function BeginnerQuestions({count, handleSubmit,
         recordedVideo={recordedVideo}
         setRecordedVideo={setRecordedVideo}
         handleSubmit={handleSubmit}
-      />
+        />
     </>
   )
 }

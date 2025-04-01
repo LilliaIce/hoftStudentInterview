@@ -1,8 +1,6 @@
 import { useState, useRef } from 'react'
 import RecordingButtons from './RecordingButtons.jsx'
 
-
-
 export default function VideoRecorder({answerDuration, recordingStatus, 
     setRecordedVideo, recordedVideo, setRecordingStatus}) {
   const [permission, setPermission] = useState(false)
@@ -20,7 +18,7 @@ export default function VideoRecorder({answerDuration, recordingStatus,
   const uploadText = `Recording stopped. Answer video is being uploaded.\n` +
   `Please do not leave this page until the upload is finished.`
 
-  const getCameraPermission = async () => {
+  async function getCameraPermission() {
     setRecordedVideo(null)
     if ("MediaRecorder" in window) {
         try {
@@ -50,7 +48,7 @@ export default function VideoRecorder({answerDuration, recordingStatus,
     }
   }
   
-  const startRecording = async () => {
+  async function startRecording() {
     setRecordingStatus("recording")
     const media = new MediaRecorder(stream, {mimeType})
     mediaRecorder.current = media
@@ -72,7 +70,6 @@ export default function VideoRecorder({answerDuration, recordingStatus,
       if (startTime != null) {
         secondsPassed.current = secondsPassed.current + 1
         setSecondsLeft(answerDuration - secondsPassed.current)
-        console.log(`${secondsPassed.current}`)
         if (secondsPassed.current === answerDuration) {
           stopRecording()
         }
@@ -80,7 +77,7 @@ export default function VideoRecorder({answerDuration, recordingStatus,
     }, 1000)
   }
   
-  const stopRecording = () => {
+  function stopRecording() {
     setRecordingStatus("inactive")
     startTime = null
     secondsPassed.current = 0
@@ -111,12 +108,12 @@ export default function VideoRecorder({answerDuration, recordingStatus,
         ) : null }        
 			</div>
       <RecordingButtons
-      permission={permission}
-      getCameraPermission={getCameraPermission}
-      startRecording={startRecording}
-      stopRecording={stopRecording}
-      recordedVideo={recordedVideo}
-      recordingStatus={recordingStatus}
+        permission={permission}
+        getCameraPermission={getCameraPermission}
+        startRecording={startRecording}
+        stopRecording={stopRecording}
+        recordedVideo={recordedVideo}
+        recordingStatus={recordingStatus}
       />
     </>
   )

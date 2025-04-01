@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './App.css'
 
-export default function Intro({startTest, setLevel, firstName, lastName, emailAddress}) {
+export default function Intro({setTestState, setLevel, firstName, lastName, emailAddress}) {
   const [message, setMessage] = useState("")
 
   const handleClick = () => {
@@ -17,15 +17,15 @@ export default function Intro({startTest, setLevel, firstName, lastName, emailAd
       lastName.current = lName.value
       emailAddress.current = email
       if (beginner === true) {
-        startTest(true)
+        setTestState("in progress")
         setLevel("beginnerQuestionVideos")
       }
       else if (intermediate === true) {
-        startTest(true)
+        setTestState("in progress")
         setLevel("intermediateQuestionVideos")
       }
       else if (advanced === true) {
-        startTest(true)
+        setTestState("in progress")
         setLevel("advancedQuestionVideos")
       }
       else {
