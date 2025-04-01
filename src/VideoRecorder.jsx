@@ -7,13 +7,12 @@ export default function VideoRecorder({answerDuration, recordingStatus,
   const [secondsLeft, setSecondsLeft] = useState(null)
   const [stream, setStream] = useState(null)
   const [videoChunks, setVideoChunks] = useState([])
-  const intervalRef = useRef(null)
   const mediaRecorder = useRef(null)
-  const secondsPassed = useRef(0)
-  let startTime = null
-  const mimeType = "video/webm";
   const liveVideoFeed = useRef(null)
-
+  const intervalRef = useRef(null)
+  const secondsPassed = useRef(0)
+  const mimeType = "video/webm";
+  let startTime = null
   const recordingText = `Recording ${secondsLeft} seconds left.`
   const uploadText = `Recording stopped. Answer video is being uploaded.\n` +
   `Please do not leave this page until the upload is finished.`
@@ -55,8 +54,8 @@ export default function VideoRecorder({answerDuration, recordingStatus,
     mediaRecorder.current.start()
     let localVideoChunks = []
     mediaRecorder.current.ondataavailable = (event) => {
-      if (typeof event.data === "undefined") return
-      if (event.data.size === 0) return
+      if (typeof event.data == "undefined") return
+      if (event.data.size == 0) return
       localVideoChunks.push(event.data)
     }
     setVideoChunks(localVideoChunks)
@@ -70,13 +69,13 @@ export default function VideoRecorder({answerDuration, recordingStatus,
       if (startTime != null) {
         secondsPassed.current = secondsPassed.current + 1
         setSecondsLeft(answerDuration - secondsPassed.current)
-        if (secondsPassed.current === answerDuration) {
+        if (secondsPassed.current == answerDuration) {
           stopRecording()
         }
       }
     }, 1000)
   }
-  
+
   function stopRecording() {
     setRecordingStatus("inactive")
     startTime = null
@@ -100,6 +99,9 @@ export default function VideoRecorder({answerDuration, recordingStatus,
 				) : (
           <video ref={liveVideoFeed} autoPlay className="video"/>
         )}
+        {!recordedVideo && recordingStatus == "inactive" ? (
+          <p>Record a {answerDuration} seconds long video.</p>
+        ) : null }
         {recordedVideo && recordingStatus == "inactive" ? (
           <p>{uploadText}</p>
 				) : null }            
@@ -108,12 +110,12 @@ export default function VideoRecorder({answerDuration, recordingStatus,
         ) : null }        
 			</div>
       <RecordingButtons
+        recordedVideo={recordedVideo}
+        recordingStatus={recordingStatus}
         permission={permission}
         getCameraPermission={getCameraPermission}
         startRecording={startRecording}
         stopRecording={stopRecording}
-        recordedVideo={recordedVideo}
-        recordingStatus={recordingStatus}
       />
     </>
   )

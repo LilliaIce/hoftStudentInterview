@@ -1,9 +1,9 @@
-import { useState, useRef } from 'react'
+import { useState } from 'react'
 import BeginnerQuestions from './BeginnerQuestions.jsx'
 import IntermediateQuestions from './IntermediateQuestions.jsx'
 import AdvancedQuestions from './AdvancedQuestions.jsx'
 
-export default function Questions({count, setCount, level, firstName, lastName, email}) {
+export default function Questions({count, setTestState, setCount, level, firstName, lastName, email}) {
   const [recordingStatus, setRecordingStatus] = useState("inactive")
   const [recordedVideo, setRecordedVideo] = useState(null)
 
@@ -21,15 +21,12 @@ export default function Questions({count, setCount, level, firstName, lastName, 
   function handleSubmit(total, recordedVideo) {
     setRecordingStatus("inactive")
     setRecordedVideo(null)
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    })
+    window.scrollTo(0, 0)
     if (count < total) {
       setCount(count + 1)
     }
     else {
-      setFinished(true)
+      setTestState("finished")
     }
     let link = document.createElement("a")
     let currentTime = getCurrentTime()

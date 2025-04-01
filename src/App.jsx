@@ -33,6 +33,7 @@ export default function App() {
         <Questions
           count={count}
           setCount={setCount}
+          setTestState={setTestState}
           level={level}
           firstName={firstName}
           lastName={lastName}

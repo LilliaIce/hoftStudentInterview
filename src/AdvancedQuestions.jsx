@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import './App.css'
 import QuestionVideo from './QuestionVideo.jsx'
 import VideoRecorder from './VideoRecorder.jsx'
@@ -66,14 +65,14 @@ export default function AdvancedQuestions({count, handleSubmit,
       <h2>Advanced Test</h2>
       <p>Question {count} of {total}</p>
       <QuestionVideo
-      videoLink={questionVideoMap[count-1]}
+        videoLink={questionVideoMap[count-1]}
       />
       <p>{extraContentMap[count]}</p>
       <VideoRecorder
+        answerDuration={answerDurationMap[count-1]}
         recordingStatus={recordingStatus}
         setRecordingStatus={setRecordingStatus}
         recordedVideo={recordedVideo}
-        answerDuration={answerDurationMap[count-1]}
         setRecordedVideo={setRecordedVideo}
       />
       <SubmitButton

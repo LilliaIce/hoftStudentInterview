@@ -8,17 +8,17 @@ export default function RecordingButtons({permission, getCameraPermission,
           Connect Camera
         </button>
         ) : ( null )}
-      {permission && !recordedVideo && recordingStatus === "inactive" ? (
+      {permission && !recordedVideo && recordingStatus == "inactive" ? (
         <button type="button" onClick={startRecording}>
           Start recording
         </button>
       ) : null }
-      {permission && recordedVideo && recordingStatus === "inactive" ? (
+      {permission && recordedVideo && recordingStatus == "inactive" ? (
         <button type="button" id="noSubmit">
           Start recording
         </button>
       ) : null }
-      {recordingStatus === "recording" ? (
+      {recordingStatus == "recording" ? (
         <button type="button" onClick={stopRecording}>
           Stop recording and upload answer
         </button>
