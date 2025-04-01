@@ -7,6 +7,8 @@ import IntermediateQuestions from './IntermediateQuestions.jsx'
 import AdvancedQuestions from './AdvancedQuestions.jsx'
 
 export default function App() {
+  const [recordingStatus, setRecordingStatus] = useState("inactive")
+  const [recordedVideo, setRecordedVideo] = useState(null)
   const [start, startTest] = useState(false)
   const [finish, setFinished] = useState(false)
   const [level, setLevel] = useState(null)
@@ -62,6 +64,10 @@ export default function App() {
         <BeginnerQuestions
           count={count}
           handleSubmit={handleSubmit}
+          recordedVideo={recordedVideo}
+          setRecordedVideo={setRecordedVideo}
+          recordingStatus={recordingStatus}
+          setRecordingStatus={setRecordingStatus}
         />
       </>
     )
@@ -73,6 +79,10 @@ export default function App() {
         <IntermediateQuestions
           count={count}
           handleSubmit={handleSubmit}
+          recordedVideo={recordedVideo}
+          setRecordedVideo={setRecordedVideo}
+          recordingStatus={recordingStatus}
+          setRecordingStatus={setRecordingStatus}
         />
       </>
     )
@@ -84,6 +94,10 @@ export default function App() {
         <AdvancedQuestions
           count={count}
           handleSubmit={handleSubmit}
+          recordedVideo={recordedVideo}
+          setRecordedVideo={setRecordedVideo}
+          recordingStatus={recordingStatus}
+          setRecordingStatus={setRecordingStatus}
         />
       </>
     )

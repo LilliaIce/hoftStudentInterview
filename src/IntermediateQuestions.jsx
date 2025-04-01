@@ -2,6 +2,7 @@ import { useState } from 'react'
 import './App.css'
 import QuestionVideo from './QuestionVideo.jsx'
 import VideoRecorder from './VideoRecorder.jsx'
+import SubmitButton from './SubmitButton.jsx'
 
 const answerDurationMap = [
   16,
@@ -54,7 +55,8 @@ const videoSources = questionVideoMap.map((key) => {
 })
 console.log(videoSources)
 
-export default function IntermediateQuestions({count, handleSubmit}) {
+export default function IntermediateQuestions({count, handleSubmit, 
+    recordingStatus, setRecordingStatus, recordedVideo, setRecordedVideo}) {
   const total = 9
 
   return (
@@ -66,10 +68,19 @@ export default function IntermediateQuestions({count, handleSubmit}) {
       />
       <p>{extraContentMap[count]}</p>
       <VideoRecorder
-        handleSubmit={handleSubmit}
-        total={total}
+        recordingStatus={recordingStatus}
+        setRecordingStatus={setRecordingStatus}
+        recordedVideo={recordedVideo}
         answerDuration={answerDurationMap[count-1]}
-      />    
+        setRecordedVideo={setRecordedVideo}
+      />
+      <SubmitButton
+        total={total}
+        recordingStatus={recordingStatus}
+        recordedVideo={recordedVideo}
+        setRecordedVideo={setRecordedVideo}
+        handleSubmit={handleSubmit}
+      />
     </>
   )
 }

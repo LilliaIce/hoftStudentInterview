@@ -1,20 +1,23 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef } from 'react'
+import RecordingButtons from './RecordingButtons.jsx'
 
-export default function VideoRecorder({handleSubmit, total, answerDuration}) {
+
+
+export default function VideoRecorder({answerDuration, recordingStatus, 
+    setRecordedVideo, recordedVideo, setRecordingStatus}) {
   const [permission, setPermission] = useState(false)
-  const [recordingStatus, setRecordingStatus] = useState("inactive")
+  const [secondsLeft, setSecondsLeft] = useState(null)
   const [stream, setStream] = useState(null)
   const [videoChunks, setVideoChunks] = useState([])
-  const [recordedVideo, setRecordedVideo] = useState(null)
-  let startTime = null
-  const secondsPassed = useRef(0)
-  const [secondsLeft, setSecondsLeft] = useState(null)
   const intervalRef = useRef(null)
   const mediaRecorder = useRef(null)
-  const liveVideoFeed = useRef(null)
+  const secondsPassed = useRef(0)
+  let startTime = null
   const mimeType = "video/webm";
-  let recordingText = `Recording ${secondsLeft} seconds left.`
-  let uploadText = `Recording stopped. Answer video is being uploaded.\n` +
+  const liveVideoFeed = useRef(null)
+
+  const recordingText = `Recording ${secondsLeft} seconds left.`
+  const uploadText = `Recording stopped. Answer video is being uploaded.\n` +
   `Please do not leave this page until the upload is finished.`
 
   const getCameraPermission = async () => {
@@ -46,7 +49,7 @@ export default function VideoRecorder({handleSubmit, total, answerDuration}) {
         alert("The MediaRecorder API is not supported in your browser.")
     }
   }
-
+  
   const startRecording = async () => {
     setRecordingStatus("recording")
     const media = new MediaRecorder(stream, {mimeType})
@@ -59,7 +62,7 @@ export default function VideoRecorder({handleSubmit, total, answerDuration}) {
       localVideoChunks.push(event.data)
     }
     setVideoChunks(localVideoChunks)
-
+  
     startTime = Date.now()
     secondsPassed.current = 0
     setSecondsLeft(answerDuration)
@@ -76,7 +79,7 @@ export default function VideoRecorder({handleSubmit, total, answerDuration}) {
       }
     }, 1000)
   }
-
+  
   const stopRecording = () => {
     setRecordingStatus("inactive")
     startTime = null
@@ -107,40 +110,14 @@ export default function VideoRecorder({handleSubmit, total, answerDuration}) {
           <p>{recordingText}</p>
         ) : null }        
 			</div>
-      <div className="submit">
-        {!permission ? (
-          <button type="button" id="cameraButton" onClick={getCameraPermission}>
-            Connect Camera
-          </button>
-          ) : ( null )}
-        {permission && !recordedVideo && recordingStatus === "inactive" ? (
-          <button type="button" onClick={startRecording}>
-            Start question
-          </button>
-        ) : null }
-        {permission && recordedVideo && recordingStatus === "inactive" ? (
-          <button type="button" id="noSubmit">
-            Start question
-          </button>
-        ) : null }
-        {recordingStatus === "recording" ? (
-          <button type="button" onClick={stopRecording}>
-            Stop recording and upload answer
-          </button>
-        ) : ( null )}
-        {recordingStatus != "inactive" ? (
-          <button type="button" id="noSubmit">
-            Next question
-          </button>
-        ) : (
-          <button type="button" onClick={() => {
-            handleSubmit(total, recordedVideo)
-            setRecordedVideo(null)
-          }}>
-            Next question
-          </button>
-        )}
-      </div>
+      <RecordingButtons
+      permission={permission}
+      getCameraPermission={getCameraPermission}
+      startRecording={startRecording}
+      stopRecording={stopRecording}
+      recordedVideo={recordedVideo}
+      recordingStatus={recordingStatus}
+      />
     </>
   )
 }
