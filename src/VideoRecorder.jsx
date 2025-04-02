@@ -90,7 +90,7 @@ export default function VideoRecorder({answerDuration, recordingStatus,
 
   return (
     <>
-			<div className="videoDiv">
+			<div className="videoDiv" id="recorder">
         {recordedVideo && recordingStatus == "inactive" ? (
           <video className="video" src={recordedVideo} controls/>
 				) : ( 

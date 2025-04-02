@@ -127,7 +127,10 @@ div.submit {
 div.videoDiv {
   margin-bottom: 1em;
   margin-top: 1em;
-  height: 100%;
+}
+
+div#recorder {
+  height: 24em;
 }
 
 .video {
