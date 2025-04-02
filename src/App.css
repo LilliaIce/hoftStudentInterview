@@ -39,6 +39,7 @@ img {
 
 div {
   clear: both;
+  height: 100%;
 }
 
 div#userInfoDiv,
@@ -63,6 +64,7 @@ p {
   font-size: 1em;
   line-height: 1.2em;
   margin: 0.5em;
+  height: 100%;
 }
 
 div.checkBox {
@@ -86,9 +88,6 @@ div.inputField > input {
 div#levelDiv > div {
   display: flex;
   width: 6em;
-}
-
-div#levelDiv > div {
   justify-content: right;
   margin: auto;
 }
@@ -109,6 +108,7 @@ button#videoButton {
   border: none;
   width: auto;
   padding: 0px;
+  overflow-anchor: none;
 }
 
 button#noSubmit {
@@ -121,11 +121,13 @@ div.submit {
   clear: both;
   flex-direction: column;
   justify-content: center;
+  height: 100%;
 }
 
 div.videoDiv {
   margin-bottom: 1em;
   margin-top: 1em;
+  height: 100%;
 }
 
 .video {

@@ -2,14 +2,12 @@ export default function SubmitButton({total, recordedVideo, recordingStatus, han
   
   return (
   <div className="submit">
-    {recordingStatus == "inactive" && recordedVideo ? (
-            <button type="button" onClick={() => {
-              handleSubmit(total, recordedVideo)
-            }}>
+    {recordedVideo ? (
+            <button type="button" onClick={() => handleSubmit(total)}>
               Next question
             </button>
     ) : null }
-    {recordingStatus == "inactive" && !recordedVideo ? (
+    {!recordedVideo ? (
       <button type="button" id="noSubmit">
         Next question
       </button>

@@ -18,9 +18,7 @@ export default function Questions({count, setTestState, setCount, level, firstNa
     return `${month}-${day}-${year}_${hours}-${minutes}-${seconds}`
   }
 
-  function handleSubmit(total, recordedVideo) {
-    setRecordingStatus("inactive")
-    setRecordedVideo(null)
+  function handleSubmit(total) {
     window.scrollTo(0, 0)
     if (count < total) {
       setCount(count + 1)
@@ -33,6 +31,7 @@ export default function Questions({count, setTestState, setCount, level, firstNa
     link.download = "question" + count + "_" + lastName.current + "_" + 
       firstName.current + "_" + currentTime
     link.href = recordedVideo
+    setRecordedVideo(null)
     link.click()
   }
 

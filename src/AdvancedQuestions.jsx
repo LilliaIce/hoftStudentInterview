@@ -1,6 +1,7 @@
 import './App.css'
 import QuestionVideo from './QuestionVideo.jsx'
 import VideoRecorder from './VideoRecorder.jsx'
+import SubmitButton from './SubmitButton.jsx'
 
 const answerDurationMap = [
   6,
@@ -55,7 +56,8 @@ const videoSources = questionVideoMap.map((key) => {
 })
 console.log(videoSources)
 
-export default function AdvancedQuestions({count, handleSubmit}) {
+export default function AdvancedQuestions({count, handleSubmit, 
+  recordingStatus, setRecordingStatus, recordedVideo, setRecordedVideo}) {
   const total = 10
 
   return (
@@ -63,13 +65,22 @@ export default function AdvancedQuestions({count, handleSubmit}) {
       <h2>Advanced Test</h2>
       <p>Question {count} of {total}</p>
       <QuestionVideo
-        videoLink={questionVideoMap[count-1]}
+      videoLink={questionVideoMap[count-1]}
       />
       <p>{extraContentMap[count]}</p>
       <VideoRecorder
-        handleSubmit={handleSubmit}
-        total={total}
+        recordingStatus={recordingStatus}
+        setRecordingStatus={setRecordingStatus}
+        recordedVideo={recordedVideo}
         answerDuration={answerDurationMap[count-1]}
+        setRecordedVideo={setRecordedVideo}
+      />
+      <SubmitButton
+        total={total}
+        recordingStatus={recordingStatus}
+        recordedVideo={recordedVideo}
+        setRecordedVideo={setRecordedVideo}
+        handleSubmit={handleSubmit}
       />
     </>
   )

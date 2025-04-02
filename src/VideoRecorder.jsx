@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react'
 import RecordingButtons from './RecordingButtons.jsx'
+import RecorderText from './RecorderText.jsx'
 
 export default function VideoRecorder({answerDuration, recordingStatus, 
     setRecordedVideo, recordedVideo, setRecordingStatus}) {
@@ -13,12 +14,8 @@ export default function VideoRecorder({answerDuration, recordingStatus,
   const secondsPassed = useRef(0)
   const mimeType = "video/webm";
   let startTime = null
-  const recordingText = `Recording ${secondsLeft} seconds left.`
-  const uploadText = `Recording stopped. Answer video is being uploaded.\n` +
-  `Please do not leave this page until the upload is finished.`
 
   async function getCameraPermission() {
-    setRecordedVideo(null)
     if ("MediaRecorder" in window) {
         try {
           const audioConstraints = {audio: true}
@@ -54,8 +51,8 @@ export default function VideoRecorder({answerDuration, recordingStatus,
     mediaRecorder.current.start()
     let localVideoChunks = []
     mediaRecorder.current.ondataavailable = (event) => {
-      if (typeof event.data == "undefined") return
-      if (event.data.size == 0) return
+      if (typeof event.data === "undefined") return
+      if (event.data.size === 0) return
       localVideoChunks.push(event.data)
     }
     setVideoChunks(localVideoChunks)
@@ -96,19 +93,16 @@ export default function VideoRecorder({answerDuration, recordingStatus,
 			<div className="videoDiv">
         {recordedVideo && recordingStatus == "inactive" ? (
           <video className="video" src={recordedVideo} controls/>
-				) : (
-          <video ref={liveVideoFeed} autoPlay className="video"/>
+				) : ( 
+          <video ref={liveVideoFeed} autoPlay className="video"/> 
         )}
-        {!recordedVideo && recordingStatus == "inactive" ? (
-          <p>Record a {answerDuration} seconds long video.</p>
-        ) : null }
-        {recordedVideo && recordingStatus == "inactive" ? (
-          <p>{uploadText}</p>
-				) : null }            
-        {recordingStatus == "recording" ? (
-          <p>{recordingText}</p>
-        ) : null }        
 			</div>
+      <RecorderText
+          answerDuration={answerDuration}
+          secondsLeft={secondsLeft}
+          recordingStatus={recordingStatus}
+          recordedVideo={recordedVideo}
+      />
       <RecordingButtons
         recordedVideo={recordedVideo}
         recordingStatus={recordingStatus}
