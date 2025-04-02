@@ -1,10 +1,3 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
-
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -20,8 +13,8 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-img {
-    width: 250px;
+#root {
+  text-align: center;
 }
 
 @media (prefers-color-scheme: light) {
@@ -29,17 +22,28 @@ img {
     color: #213547;
     background-color: #ffffff;
   }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+}
+
+html {
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-flow: column;
 }
 
 div {
   clear: both;
-  height: 100%;
+}
+
+img {
+  width: 50%;
 }
 
 div#userInfoDiv,
@@ -55,7 +59,7 @@ h1 {
 
 h2 {
   font-weight: bold;
-  margin: 0em;
+  margin: 0;
   padding: 0.2em;
   font-size: 1.2em;
 }
@@ -125,8 +129,8 @@ div.submit {
 }
 
 div.videoDiv {
-  margin-bottom: 1em;
   margin-top: 1em;
+  margin-bottom: 1em;
 }
 
 div#recorder {
@@ -134,10 +138,30 @@ div#recorder {
 }
 
 .video {
-  width: 500px;
   display: block;
   text-align: center;
   margin: auto;
   border: solid 1px navy;
 }
 
+.header {
+  margin-top: 3em;
+}
+
+.bodyContent {
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 2em;
+}
+
+.footer {
+  height: 2em;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  font-size: 1em;
+  color: white;
+  font-weight: none;
+  background-color: navy;
+}

@@ -3,6 +3,7 @@ import './App.css'
 import Intro from './Intro.jsx'
 import Header from './Header.jsx'
 import Questions from './Questions.jsx'
+import Footer from './Footer.jsx'
 
 export default function App() {
   const [testState, setTestState] = useState("starting")
@@ -15,40 +16,59 @@ export default function App() {
   if (testState == "starting") {
     return (
       <>
-        <Header/>
-        <Intro
-          setTestState={setTestState}
-          setLevel={setLevel}
-          firstName={firstName}
-          lastName={lastName}
-          emailAddress={emailAddress}
-        />
+        <div className="header">
+          <Header/>
+        </div>
+        <div className="bodyContent">
+          <Intro
+            setTestState={setTestState}
+            setLevel={setLevel}
+            firstName={firstName}
+            lastName={lastName}
+            emailAddress={emailAddress}
+          />
+        </div>
+        <div className="footer">
+          <Footer/>
+        </div>
       </>
     )
   }
   else if (testState == "in progress") {
     return (
       <>
-        <Header/>
-        <Questions
-          count={count}
-          setTestState={setTestState}
-          setCount={setCount}
-          level={level}
-          firstName={firstName}
-          lastName={lastName}
-          email={emailAddress}
-        />
+        <div className="header">
+          <Header/>
+        </div>
+        <div className="bodyContent">
+          <Questions
+            count={count}
+            setTestState={setTestState}
+            setCount={setCount}
+            level={level}
+            firstName={firstName}
+            lastName={lastName}
+            email={emailAddress}
+          />
+        </div>
+        <div className="footer">
+          <Footer/>
+        </div>
       </>
     )
   }
   else {
     return (
       <>
-        <Header/>
-        <p>
+        <div className="header">
+          <Header/>
+        </div>
+        <p className="bodyContent">
           Your test has been submitted
         </p>
+        <div className="footer">
+          <Footer/>
+        </div>
       </>
     )
   }
