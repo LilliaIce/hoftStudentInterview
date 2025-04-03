@@ -18,24 +18,32 @@ export default function Questions({count, setTestState, setCount, level, firstNa
     return `${month}-${day}-${year}_${hours}-${minutes}-${seconds}`
   }
 
+  // Submits the question once a response video
+  // has been recorded
   function handleSubmit(total) {
+    // Scrolls back to the top of the page
     window.scrollTo(0, 0)
+    // If there aren't any more questions, finished
+    // the test
     if (count < total) {
       setCount(count + 1)
     }
     else {
       setTestState("finished")
     }
+    // Downloads a file containing the test-taker's
+    // name and the current date
     let link = document.createElement("a")
     let currentTime = getCurrentTime()
     link.download = "question" + count + "_" + lastName.current + "_" + 
       firstName.current + "_" + currentTime
     link.href = recordedVideo
-    setRecordedVideo(null)
     link.click()
+    // Resets recordedVideo
+    setRecordedVideo(null)
   }
 
-  if (level == "beginnerQuestionVideos") {
+  if (level == "beginner") {
     return (
       <>
         <BeginnerQuestions
@@ -49,7 +57,7 @@ export default function Questions({count, setTestState, setCount, level, firstNa
       </>
     )
   }
-  else if (level == "intermediateQuestionVideos") {
+  else if (level == "intermediate") {
     return (
       <>
         <IntermediateQuestions

@@ -4,6 +4,7 @@ export default function QuestionVideo({videoLink}) {
   const [isPlaying, setPlaying] = useState(false)
   const ref = useRef(null)
 
+  // Starts or stops the question video on click
   const handleClick = () => {
     setPlaying(!isPlaying)
 

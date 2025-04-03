@@ -15,7 +15,10 @@ export default function VideoRecorder({answerDuration, recordingStatus,
   const mimeType = "video/webm";
   let startTime = null
 
+  // Gets audio and video permissions from the user
+  // and formats the streams
   async function getCameraPermission() {
+    // Checks for the MediaRecorder API
     if ("MediaRecorder" in window) {
         try {
           const audioConstraints = {audio: true}
@@ -27,14 +30,19 @@ export default function VideoRecorder({answerDuration, recordingStatus,
               frameRate: {min: 10, ideal: 10}
             }
           }
+          // Creates audio stream
           const audioStream = await navigator.mediaDevices.getUserMedia(audioConstraints)
+          // Creates video stream
           const videoStream = await navigator.mediaDevices.getUserMedia(videoConstraints)
           setPermission(true)
+          // Combines audio and video streams
           const combinedStream = new MediaStream([
             ...videoStream.getVideoTracks(),
             ...audioStream.getAudioTracks()
           ])
+          // Sets stream to the combinedStream
           setStream(combinedStream)
+          // Connects liveVideoFeed to the videoStream
           liveVideoFeed.current.srcObject = videoStream
         } catch (err) {
           alert(err.message)
@@ -44,28 +52,41 @@ export default function VideoRecorder({answerDuration, recordingStatus,
     }
   }
   
+  // Starts recording
   async function startRecording() {
     setRecordingStatus("recording")
+    // creates a MediaRecorder
     const media = new MediaRecorder(stream, {mimeType})
+    // connects media to the mediaRecorder ref
     mediaRecorder.current = media
+    // starts the mediaRecorder
     mediaRecorder.current.start()
     let localVideoChunks = []
     mediaRecorder.current.ondataavailable = (event) => {
       if (typeof event.data === "undefined") return
       if (event.data.size === 0) return
+      // adds event.data to the localVideoChunks array
       localVideoChunks.push(event.data)
     }
+    // sets videoChunks to localVideoChunks once
+    // the user is done recording
     setVideoChunks(localVideoChunks)
   
+    // gets the time recording started
+    // sets secondsLeft to the required answer duration
     startTime = Date.now()
     secondsPassed.current = 0
     setSecondsLeft(answerDuration)
+
     clearInterval(intervalRef.current)
-    
     intervalRef.current = setInterval(() => {
       if (startTime != null) {
+        // advances secondsPassed and displays the amount
+        // of seconds the student has to answer
         secondsPassed.current = secondsPassed.current + 1
         setSecondsLeft(answerDuration - secondsPassed.current)
+        // if secondsPassed exceeds the required answer duration,
+        // the recording will be stopped
         if (secondsPassed.current == answerDuration) {
           stopRecording()
         }
@@ -73,17 +94,20 @@ export default function VideoRecorder({answerDuration, recordingStatus,
     }, 1000)
   }
 
+  // Stops recording
   function stopRecording() {
     setRecordingStatus("inactive")
-    startTime = null
-    secondsPassed.current = 0
+    // resets recording-related states and refs
     mediaRecorder.current.stop()
     mediaRecorder.current.onstop = () => {
       const videoBlob = new Blob(videoChunks, {type: mimeType})
       const videoUrl = URL.createObjectURL(videoBlob)
       setRecordedVideo(videoUrl)
       setVideoChunks([])
+      startTime = null
+      secondsPassed.current = 0
     }
+    // clears the interval
     clearInterval(intervalRef.current)
     intervalRef.current = null
   }

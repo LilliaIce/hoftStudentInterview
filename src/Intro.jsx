@@ -4,6 +4,9 @@ import './App.css'
 export default function Intro({setTestState, setLevel, firstName, lastName, emailAddress}) {
   const [message, setMessage] = useState("")
 
+  // Makes sure that all input fields contain data
+  // If they don't, refuses to advance to the test and
+  // notifies the user of what info is needed
   const handleClick = () => {
     let fName = document.getElementById("fName").value
     let lName = document.getElementById("lName")
@@ -12,31 +15,38 @@ export default function Intro({setTestState, setLevel, firstName, lastName, emai
     let intermediate = document.getElementById("intermediate").checked
     let advanced = document.getElementById("advanced").checked
     if ((lName.value != null && lName.value != "") || lName.disabled === true
-        && (fName != null && fName != "") && (email != null && email != "")) {
-      firstName.current = fName
-      lastName.current = lName.value
-      emailAddress.current = email
-      if (beginner === true) {
-        setTestState("in progress")
-        setLevel("beginnerQuestionVideos")
-      }
-      else if (intermediate === true) {
-        setTestState("in progress")
-        setLevel("intermediateQuestionVideos")
-      }
-      else if (advanced === true) {
-        setTestState("in progress")
-        setLevel("advancedQuestionVideos")
+        && (fName != null && fName != "")) {
+      // tests for [characters]@[characters].[characters]
+      if (email != null && email != "" && /\w+\@\w+\.\w+/.test(email)) {
+        firstName.current = fName
+        lastName.current = lName.value
+        emailAddress.current = email
+        if (beginner === true) {
+          setTestState("in progress")
+          setLevel("beginner")
+        }
+        else if (intermediate === true) {
+          setTestState("in progress")
+          setLevel("intermediate")
+        }
+        else if (advanced === true) {
+          setTestState("in progress")
+          setLevel("advanced")
+        }
+        else {
+          setMessage("Please select a level before proceeding")
+        }  
       }
       else {
-        setMessage("Please select a level before proceeding")
-      }  
+        setMessage("Please enter a valid email address.")
+      }
     }
     else {
       setMessage("Please fill all fields before proceeding")
     }
   }
 
+  // Enables or disables lName when the check is checked/unchecked
   const handleCheck = () => {
     let check = document.getElementById("nameCheckBox")
     let lName = document.getElementById("lName")
