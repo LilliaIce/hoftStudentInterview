@@ -50,42 +50,44 @@ export default function Intro({setTestState, setLevel, firstName, lastName, emai
 
   return (
     <>
-      <div id="userInfoDiv">
-        <h2>
-          Student Info
-        </h2>
-        <div className="checkBox">
-          <label>Only one name</label>
-          <input type="checkbox" id="nameCheckBox" onClick={handleCheck}/>
+      <div id="inputDiv">
+        <div id="userInfoDiv">
+          <h2>
+            Student Info
+          </h2>
+          <div className="checkBox">
+            <label>Only one name</label>
+            <input type="checkbox" id="nameCheckBox" onClick={handleCheck}/>
+          </div>
+          <div className="inputField">
+            <label>First name:</label>
+            <input id="fName" type="text"/>
+          </div>
+          <div className="inputField">
+            <label>Last name:</label>
+            <input id="lName" type="text"/>
+          </div>
+          <div className="inputField">
+            <label>Email:</label>
+            <input id="email" type="text"/>
+          </div>
         </div>
-        <div className="inputField">
-          <label>First name:</label>
-          <input id="fName" type="text"/>
-        </div>
-        <div className="inputField">
-          <label>Last name:</label>
-          <input id="lName" type="text"/>
-        </div>
-        <div className="inputField">
-          <label>Email:</label>
-          <input id="email" type="text"/>
-        </div>
-      </div>
-      <div id="levelDiv">
-        <h2>
-          Exam level
-        </h2>
-        <div>
-          <label htmlFor="beginner">Beginner</label>
-          <input type="radio" id="beginner" name="levelButtons" value="beginner" />
-        </div>
-        <div>
-          <label htmlFor="intermediate">Intermediate</label>
-          <input type="radio" id="intermediate" name="levelButtons" value="intermediate" />
-        </div>
-        <div>
-          <label htmlFor="advanced">Advanced</label>
-          <input type="radio" id="advanced" name="levelButtons" value="advanced" />
+        <div id="levelDiv">
+          <h2>
+            Exam level
+          </h2>
+          <div>
+            <label htmlFor="beginner">Beginner</label>
+            <input type="radio" id="beginner" name="levelButtons" value="beginner" />
+          </div>
+          <div>
+            <label htmlFor="intermediate">Intermediate</label>
+            <input type="radio" id="intermediate" name="levelButtons" value="intermediate" />
+          </div>
+          <div>
+            <label htmlFor="advanced">Advanced</label>
+            <input type="radio" id="advanced" name="levelButtons" value="advanced" />
+          </div>
         </div>
       </div>
       <p>

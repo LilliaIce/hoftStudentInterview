@@ -15,6 +15,8 @@
 
 #root {
   text-align: center;
+  width: 100%;
+  height: 100%;
 }
 
 @media (prefers-color-scheme: light) {
@@ -24,18 +26,43 @@
   }
 }
 
-html {
-  height: 100vh;
+/*
+PAGE CONSTRUCTION
+*/
+
+html, body {
   margin: 0;
   padding: 0;
+  height: 100%;
 }
 
 body {
-  margin: 0;
-  padding: 0;
-  min-height: 100vh;
   display: flex;
+}
+
+.header {
+  margin-top: 35px;
+}
+
+.bodyContent {
   flex-flow: column;
+  margin: 0;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+  font-size: 1em;
+  height: 2em;
+  width: 100%;
+  color: white;
+  font-weight: none;
+  background-color: navy;
 }
 
 div {
@@ -46,54 +73,20 @@ img {
   width: 50%;
 }
 
-div#userInfoDiv,
-div#levelDiv {
-  padding:1em;
-}
-
 h1 {
-  font-size: 1.4em;
+  font-size: 25px;
   font-weight: bold;
-  line-height: 1em;
+  flex: 1 1 1;
 }
 
 h2 {
   font-weight: bold;
-  margin: 0;
-  padding: 0.2em;
-  font-size: 1.2em;
+  font-size: 20px;
 }
 
-p {
-  font-size: 1em;
-  line-height: 1.2em;
-  margin: 0.5em;
-  height: 100%;
-}
-
-div.checkBox {
-  float: right;
-  padding-bottom: 0.5em;
-}
-
-div.inputField {
-  padding-bottom: 1em;
-}
-
-div.inputField > label {
-  float: left;
-  padding-right: 1em;
-}
-
-div.inputField > input {
-  float: right;
-}
-
-div#levelDiv > div {
-  display: flex;
-  width: 6em;
-  justify-content: right;
-  margin: auto;
+p, label {
+  font-size: 15px;
+  line-height: 1em;
 }
 
 button {
@@ -106,6 +99,82 @@ button {
   margin-top: 0.3em;
   margin-bottom: 0.3em;
 }
+
+/*
+INTRO
+*/
+
+/*
+MEDIUM TO LARGE SCREENS
+*/
+@media screen and (min-width: 600px) {
+  div#userInfoDiv,
+  div#levelDiv {
+    padding: 1em;
+  }
+  div#inputDiv {
+    position: relative;
+    max-width: 300px;
+    margin: 0 auto;
+    width: 100%;
+  }
+  div.inputField {
+    padding-bottom: 1em;
+  }
+  div.inputField > label {
+    float: left;
+    width: 6em;
+    text-align: left;
+  }
+  div.inputField > input {
+    float: right;
+  }
+  div.checkBox {
+  float: right;
+  padding-bottom: 0.5em;
+  }
+}
+
+/*
+SMALL SCREENS
+*/
+@media screen and (max-width: 600px) {
+  div#userInfoDiv,
+  div#levelDiv {
+    padding: 0.5em;
+  }
+  div#inputDiv {
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    max-width: 600px;
+  }
+  div.inputField > label {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  div.inputField > input {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  div.checkBox {
+    float: center;
+    padding-bottom: 1em;
+  }
+}
+
+div#levelDiv > div {
+  display: flex;
+  width: 6em;
+  justify-content: right;
+  margin: auto;
+}
+
+/*
+QUESTIONS
+*/
 
 button#videoButton {
   background-color: none;
@@ -134,34 +203,17 @@ div.videoDiv {
 }
 
 div#recorder {
-  height: 24em;
+  max-height: 300px;
+}
+
+.recording {
+  clear: both;
 }
 
 .video {
+  max-width: 500px;
   display: block;
   text-align: center;
   margin: auto;
   border: solid 1px navy;
-}
-
-.header {
-  margin-top: 3em;
-}
-
-.bodyContent {
-  width: 50%;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 2em;
-}
-
-.footer {
-  height: 2em;
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-  font-size: 1em;
-  color: white;
-  font-weight: none;
-  background-color: navy;
 }
