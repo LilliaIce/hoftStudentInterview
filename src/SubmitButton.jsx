@@ -1,7 +1,7 @@
 export default function SubmitButton({total, recordedVideo, recordingStatus, handleSubmit}) {
   
   return (
-  <div className="submit">
+  <div id="submit">
     {recordedVideo ? (
             <button type="button" onClick={() => handleSubmit(total)}>
               Next question

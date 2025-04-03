@@ -90,27 +90,31 @@ export default function VideoRecorder({answerDuration, recordingStatus,
 
   return (
     <>
-			<div className="videoDiv" id="recorder">
+			<div className="videoDiv">
         {recordedVideo && recordingStatus == "inactive" ? (
-          <video className="video" src={recordedVideo} controls/>
+          <video src={recordedVideo} controls/>
 				) : ( 
-          <video ref={liveVideoFeed} autoPlay className="video"/> 
+          <video ref={liveVideoFeed} autoPlay/> 
         )}
 			</div>
-      <RecorderText
-          answerDuration={answerDuration}
-          secondsLeft={secondsLeft}
-          recordingStatus={recordingStatus}
+      <div className="videoText" id="recorderText">
+        <RecorderText
+            answerDuration={answerDuration}
+            secondsLeft={secondsLeft}
+            recordingStatus={recordingStatus}
+            recordedVideo={recordedVideo}
+        />
+      </div>
+      <div id="recordingButtons">
+        <RecordingButtons
           recordedVideo={recordedVideo}
-      />
-      <RecordingButtons
-        recordedVideo={recordedVideo}
-        recordingStatus={recordingStatus}
-        permission={permission}
-        getCameraPermission={getCameraPermission}
-        startRecording={startRecording}
-        stopRecording={stopRecording}
-      />
+          recordingStatus={recordingStatus}
+          permission={permission}
+          getCameraPermission={getCameraPermission}
+          startRecording={startRecording}
+          stopRecording={stopRecording}
+        />
+      </div>
     </>
   )
 }

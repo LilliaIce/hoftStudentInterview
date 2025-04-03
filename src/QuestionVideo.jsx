@@ -18,7 +18,6 @@ export default function QuestionVideo({videoLink}) {
       <div className="videoDiv">
         <button type="button" id="videoButton" onClick={handleClick}>
           <video
-            className="video"
             disablePictureInPicture
             playsInline
             controls
@@ -29,7 +28,7 @@ export default function QuestionVideo({videoLink}) {
             type="video/mp4"
           />
         </button>
-        <p>Please give the video time to load.</p>
+        <p className="videoText">Please give the video time to load.</p>
       </div>
   )
 }
