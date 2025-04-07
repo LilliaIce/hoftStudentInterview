@@ -115,11 +115,12 @@ export default function VideoRecorder({answerDuration, recordingStatus,
   return (
     <>
 			<div className="videoDiv">
-        {recordedVideo && recordingStatus == "inactive" ? (
+        {recordedVideo ? (
           <video src={recordedVideo} controls/>
-				) : ( 
-          <video ref={liveVideoFeed} autoPlay/> 
-        )}
+				) : null }
+        {!recordedVideo ? (
+        <video ref={liveVideoFeed} autoPlay/> 
+        ) : null }
 			</div>
       <div className="videoText" id="recorderText">
         <RecorderText
