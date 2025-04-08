@@ -232,10 +232,6 @@ button {
     height: 60px;
   }
   
-  div#submit {
-    margin-bottom: 50px;
-  }
-  
   button#noSubmit {
     background-color: grey;
     border: 1 solid black;
