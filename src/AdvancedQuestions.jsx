@@ -49,7 +49,7 @@ const s3 = new AWS.S3({
 const videoSources = questionVideoMap.map((key) => {
   const params = {
     Bucket: "hoftfiles",
-    Key: `questionVideos/beginnerQuestionVideos/${key}`,
+    Key: `questionVideos/advancedQuestionVideos/${key}`,
     Expires: 60 * 30,
   }
   return s3.getSignedUrl("getObject", params)
@@ -66,7 +66,7 @@ export default function AdvancedQuestions({count, handleSubmit, setVideoBlob,
       <h2>Advanced Test</h2>
       <p>Question {count} of {total}</p>
       <QuestionVideo
-      videoLink={questionVideoMap[count-1]}
+      videoLink={videoSources[count-1]}
       />
       <p>{extraContentMap[count]}</p>
       <VideoRecorder

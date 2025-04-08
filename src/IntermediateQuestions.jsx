@@ -3,6 +3,7 @@ import QuestionVideo from './QuestionVideo.jsx'
 import VideoRecorder from './VideoRecorder.jsx'
 import SubmitButton from './SubmitButton.jsx'
 
+// In seconds
 const answerDurationMap = [
   16,
   11,
@@ -47,7 +48,7 @@ const s3 = new AWS.S3({
 const videoSources = questionVideoMap.map((key) => {
   const params = {
     Bucket: "hoftfiles",
-    Key: `questionVideos/beginnerQuestionVideos/${key}`,
+    Key: `questionVideos/intermediateQuestionVideos/${key}`,
     Expires: 60 * 30,
   }
   return s3.getSignedUrl("getObject", params)
@@ -64,7 +65,7 @@ export default function IntermediateQuestions({count, handleSubmit, setVideoBlob
       <h2>Intermediate Test</h2>
       <p>Question {count} of {total}</p>
       <QuestionVideo
-      videoLink={questionVideoMap[count-1]}
+      videoLink={videoSources[count-1]}
       />
       <p>{extraContentMap[count]}</p>
       <VideoRecorder
