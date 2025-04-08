@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import BeginnerQuestions from './BeginnerQuestions.jsx'
 import IntermediateQuestions from './IntermediateQuestions.jsx'
 import AdvancedQuestions from './AdvancedQuestions.jsx'
@@ -22,9 +22,49 @@ const params = {
 
 export default function Questions({count, setTestState, setCount, level, 
     firstName, lastName, email}) {
+  const [permission, setPermission] = useState(false)
   const [recordingStatus, setRecordingStatus] = useState("inactive")
   const [recordedVideo, setRecordedVideo] = useState(null)
   const [videoBlob, setVideoBlob] = useState(null)
+  const [stream, setStream] = useState(null)
+  const liveVideoFeed = useRef(null)
+
+  // Gets audio and video permissions from the user
+  // and formats the streams
+  async function getCameraPermission() {
+    // Checks for the MediaRecorder API
+    if ("MediaRecorder" in window) {
+        try {
+          const audioConstraints = {audio: true}
+          const videoConstraints = {
+            audio: false,
+            video: {
+              width: {min: 100, ideal: 320},
+              height: {min: 100, ideal: 240},
+              frameRate: {min: 10, ideal: 10}
+            }
+          }
+          // Creates audio stream
+          const audioStream = await navigator.mediaDevices.getUserMedia(audioConstraints)
+          // Creates video stream
+          const videoStream = await navigator.mediaDevices.getUserMedia(videoConstraints)
+          setPermission(true)
+          // Combines audio and video streams
+          const combinedStream = new MediaStream([
+            ...videoStream.getVideoTracks(),
+            ...audioStream.getAudioTracks()
+          ])
+          // Sets stream to the combinedStream
+          setStream(combinedStream)
+          // Connects liveVideoFeed to the videoStream
+          liveVideoFeed.current.srcObject = videoStream
+        } catch (err) {
+          alert(err.message)
+        }
+    } else {
+        alert("The MediaRecorder API is not supported in your browser.")
+    }
+  }
 
   function getCurrentTime() {
     let date = new Date()
@@ -72,6 +112,7 @@ export default function Questions({count, setTestState, setCount, level,
     // Resets videoBlob
     setVideoBlob(null)
     setRecordedVideo(null)
+    getCameraPermission()
   }
 
   if (level == "beginner") {
@@ -82,9 +123,13 @@ export default function Questions({count, setTestState, setCount, level,
           handleSubmit={handleSubmit}
           setVideoBlob={setVideoBlob}
           setRecordedVideo={setRecordedVideo}
+          setRecordingStatus={setRecordingStatus}
+          getCameraPermission={getCameraPermission}
           recordedVideo={recordedVideo}
           recordingStatus={recordingStatus}
-          setRecordingStatus={setRecordingStatus}
+          permission={permission}
+          stream={stream}
+          liveVideoFeed={liveVideoFeed}
         />
       </>
     )
@@ -97,9 +142,13 @@ export default function Questions({count, setTestState, setCount, level,
           handleSubmit={handleSubmit}
           setVideoBlob={setVideoBlob}
           setRecordedVideo={setRecordedVideo}
+          setRecordingStatus={setRecordingStatus}
+          getCameraPermission={getCameraPermission}
           recordedVideo={recordedVideo}
           recordingStatus={recordingStatus}
-          setRecordingStatus={setRecordingStatus}
+          permission={permission}
+          stream={stream}
+          liveVideoFeed={liveVideoFeed}
         />
       </>
     )
@@ -112,9 +161,13 @@ export default function Questions({count, setTestState, setCount, level,
           handleSubmit={handleSubmit}
           setVideoBlob={setVideoBlob}
           setRecordedVideo={setRecordedVideo}
+          setRecordingStatus={setRecordingStatus}
+          getCameraPermission={getCameraPermission}
           recordedVideo={recordedVideo}
           recordingStatus={recordingStatus}
-          setRecordingStatus={setRecordingStatus}
+          permission={permission}
+          stream={stream}
+          liveVideoFeed={liveVideoFeed}
         />
       </>
     )

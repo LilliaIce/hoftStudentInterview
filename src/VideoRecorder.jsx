@@ -2,55 +2,16 @@ import { useState, useRef } from 'react'
 import RecordingButtons from './RecordingButtons.jsx'
 import RecorderText from './RecorderText.jsx'
 
-export default function VideoRecorder({answerDuration, recordingStatus, 
-    setVideoBlob, setRecordingStatus, setRecordedVideo, recordedVideo}) {
-  const [permission, setPermission] = useState(false)
+export default function VideoRecorder({recordingStatus, setRecordingStatus, 
+  answerDuration, setVideoBlob, setRecordedVideo, recordedVideo, getCameraPermission, 
+  permission, stream, liveVideoFeed}) {
   const [secondsLeft, setSecondsLeft] = useState(null)
-  const [stream, setStream] = useState(null)
   const [videoChunks, setVideoChunks] = useState([])
   const mediaRecorder = useRef(null)
-  const liveVideoFeed = useRef(null)
   const intervalRef = useRef(null)
   const secondsPassed = useRef(0)
   const mimeType = "video/webm";
   let startTime = null
-
-  // Gets audio and video permissions from the user
-  // and formats the streams
-  async function getCameraPermission() {
-    // Checks for the MediaRecorder API
-    if ("MediaRecorder" in window) {
-        try {
-          const audioConstraints = {audio: true}
-          const videoConstraints = {
-            audio: false,
-            video: {
-              width: {min: 100, ideal: 320},
-              height: {min: 100, ideal: 240},
-              frameRate: {min: 10, ideal: 10}
-            }
-          }
-          // Creates audio stream
-          const audioStream = await navigator.mediaDevices.getUserMedia(audioConstraints)
-          // Creates video stream
-          const videoStream = await navigator.mediaDevices.getUserMedia(videoConstraints)
-          setPermission(true)
-          // Combines audio and video streams
-          const combinedStream = new MediaStream([
-            ...videoStream.getVideoTracks(),
-            ...audioStream.getAudioTracks()
-          ])
-          // Sets stream to the combinedStream
-          setStream(combinedStream)
-          // Connects liveVideoFeed to the videoStream
-          liveVideoFeed.current.srcObject = videoStream
-        } catch (err) {
-          alert(err.message)
-        }
-    } else {
-        alert("The MediaRecorder API is not supported in your browser.")
-    }
-  }
 
   // Starts recording
   async function startRecording() {
