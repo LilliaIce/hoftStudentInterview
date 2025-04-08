@@ -54,8 +54,8 @@ const videoSources = questionVideoMap.map((key) => {
 })
 console.log(videoSources)
 
-export default function IntermediateQuestions({count, handleSubmit, 
-  recordingStatus, setRecordingStatus, recordedVideo, setRecordedVideo}) {
+export default function IntermediateQuestions({count, handleSubmit, recordingStatus, 
+  setRecordingStatus, setVideoBlob, recordedVideo, setRecordedVideo}) {
   const total = 9
 
   return (
@@ -69,15 +69,14 @@ export default function IntermediateQuestions({count, handleSubmit,
       <VideoRecorder
         recordingStatus={recordingStatus}
         setRecordingStatus={setRecordingStatus}
-        recordedVideo={recordedVideo}
         answerDuration={answerDurationMap[count-1]}
+        setVideoBlob={setVideoBlob}
         setRecordedVideo={setRecordedVideo}
+        recordedVideo={recordedVideo}
       />
       <SubmitButton
         total={total}
-        recordingStatus={recordingStatus}
         recordedVideo={recordedVideo}
-        setRecordedVideo={setRecordedVideo}
         handleSubmit={handleSubmit}
       />
     </>

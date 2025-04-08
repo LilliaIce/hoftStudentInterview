@@ -61,8 +61,8 @@ const videoSources = questionVideoMap.map((key) => {
 })
 console.log(videoSources)
 
-export default function BeginnerQuestions({count, handleSubmit, 
-  recordingStatus, setRecordingStatus, recordedVideo, setRecordedVideo}) {
+export default function BeginnerQuestions({count, handleSubmit, recordingStatus, 
+  setRecordingStatus, setVideoBlob, recordedVideo, setRecordedVideo}) {
   const total = 12
 
   return (
@@ -70,21 +70,20 @@ export default function BeginnerQuestions({count, handleSubmit,
       <h2>Beginner Test</h2>
       <p>Question {count} of {total}</p>
       <QuestionVideo
-      videoLink={questionVideoMap[count-1]}
+      videoLink={videoSources[count-1]}
       />
       <p>{extraContentMap[count]}</p>
       <VideoRecorder
         recordingStatus={recordingStatus}
         setRecordingStatus={setRecordingStatus}
-        recordedVideo={recordedVideo}
         answerDuration={answerDurationMap[count-1]}
+        setVideoBlob={setVideoBlob}
         setRecordedVideo={setRecordedVideo}
+        recordedVideo={recordedVideo}
       />
       <SubmitButton
         total={total}
-        recordingStatus={recordingStatus}
         recordedVideo={recordedVideo}
-        setRecordedVideo={setRecordedVideo}
         handleSubmit={handleSubmit}
       />
     </>

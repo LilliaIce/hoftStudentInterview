@@ -3,7 +3,7 @@ import RecordingButtons from './RecordingButtons.jsx'
 import RecorderText from './RecorderText.jsx'
 
 export default function VideoRecorder({answerDuration, recordingStatus, 
-    setRecordedVideo, recordedVideo, setRecordingStatus}) {
+    setVideoBlob, setRecordingStatus, setRecordedVideo, recordedVideo}) {
   const [permission, setPermission] = useState(false)
   const [secondsLeft, setSecondsLeft] = useState(null)
   const [stream, setStream] = useState(null)
@@ -51,7 +51,7 @@ export default function VideoRecorder({answerDuration, recordingStatus,
         alert("The MediaRecorder API is not supported in your browser.")
     }
   }
-  
+
   // Starts recording
   async function startRecording() {
     setRecordingStatus("recording")
@@ -101,6 +101,7 @@ export default function VideoRecorder({answerDuration, recordingStatus,
     mediaRecorder.current.stop()
     mediaRecorder.current.onstop = () => {
       const videoBlob = new Blob(videoChunks, {type: mimeType})
+      setVideoBlob(videoBlob)
       const videoUrl = URL.createObjectURL(videoBlob)
       setRecordedVideo(videoUrl)
       setVideoChunks([])

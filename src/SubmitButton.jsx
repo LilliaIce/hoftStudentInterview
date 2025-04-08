@@ -1,4 +1,4 @@
-export default function SubmitButton({total, recordedVideo, recordingStatus, handleSubmit}) {
+export default function SubmitButton({total, recordedVideo, handleSubmit}) {
   
   return (
   <div id="submit">
