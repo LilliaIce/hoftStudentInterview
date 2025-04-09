@@ -19,7 +19,7 @@ export default function RecordingButtons({permission, getCameraPermission,
         </button>
       ) : null }
       {recordingStatus == "recording" ? (
-        <button type="button" className="recordingButton" onClick={stopRecording}>
+        <button type="button" id="stop" className="recordingButton" onClick={stopRecording}>
           Stop recording and upload answer
         </button>
       ) : null }

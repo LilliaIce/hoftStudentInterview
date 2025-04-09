@@ -13,57 +13,49 @@ export default function VideoRecorder({recordingStatus, setRecordingStatus,
   const mimeType = "video/webm";
   let startTime = null
 
-  // Starts recording
   async function startRecording() {
     setRecordingStatus("recording")
-    // creates a MediaRecorder
-    const media = new MediaRecorder(stream, {mimeType})
-    // connects media to the mediaRecorder ref
-    mediaRecorder.current = media
-    // starts the mediaRecorder
-    mediaRecorder.current.start()
     let localVideoChunks = []
+    setVideoChunks(localVideoChunks)
+    mediaRecorder.current = new MediaRecorder(stream, {mimeType})
+    mediaRecorder.current.start()
     mediaRecorder.current.ondataavailable = (event) => {
       if (typeof event.data === "undefined") return
       if (event.data.size === 0) return
       // adds event.data to the localVideoChunks array
       localVideoChunks.push(event.data)
+      alert(localVideoChunks)
     }
-    // sets videoChunks to localVideoChunks once
-    // the user is done recording
-    setVideoChunks(localVideoChunks)
-  
-    // gets the time recording started
+    // gets the time the recording started and
     // sets secondsLeft to the required answer duration
     startTime = Date.now()
     secondsPassed.current = 0
     setSecondsLeft(answerDuration)
 
-    clearInterval(intervalRef.current)
     intervalRef.current = setInterval(() => {
       if (startTime != null) {
         // advances secondsPassed and displays the amount
         // of seconds the student has to answer
         secondsPassed.current = secondsPassed.current + 1
         setSecondsLeft(answerDuration - secondsPassed.current)
+
         // if secondsPassed exceeds the required answer duration,
         // the recording will be stopped
         if (secondsPassed.current == answerDuration) {
-          stopRecording()
+          document.getElementById("stop").click()
         }
       }
     }, 1000)
   }
 
-  // Stops recording
   function stopRecording() {
     setRecordingStatus("inactive")
     // resets recording-related states and refs
     mediaRecorder.current.stop()
     mediaRecorder.current.onstop = () => {
-      const videoBlob = new Blob(videoChunks, {type: mimeType})
-      setVideoBlob(videoBlob)
-      const videoUrl = URL.createObjectURL(videoBlob)
+      const blob = new Blob(videoChunks, {type: mimeType})
+      setVideoBlob(blob)
+      const videoUrl = URL.createObjectURL(blob)
       setRecordedVideo(videoUrl)
       setVideoChunks([])
       startTime = null

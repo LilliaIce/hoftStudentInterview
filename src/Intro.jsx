@@ -20,6 +20,9 @@ export default function Intro({setTestState, setLevel, firstName, lastName, emai
       if (email != null && email != "" && /\w+\@\w+\.\w+/.test(email)) {
         firstName.current = fName
         lastName.current = lName.value
+        if (lastName.current == null || lastName.current == "") {
+          lastName.current = "NONE"
+        }
         emailAddress.current = email
         if (beginner === true) {
           setTestState("in progress")

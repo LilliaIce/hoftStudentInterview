@@ -79,14 +79,6 @@ export default function Questions({count, setTestState, setCount, level,
   function handleSubmit(total) {
     // Scrolls back to the top of the page
     window.scrollTo(0, 0)
-    // If there aren't any more questions, mark the test
-    // as finished
-    if (count < total) {
-      setCount(count + 1)
-    }
-    else {
-      setTestState("finished")
-    }
     // Uploads a file containing videoBlob in the file
     // AnswerVideos/lastName_firstName_email/date/ under the
     // name Answer_n_time_level
@@ -104,15 +96,23 @@ export default function Questions({count, setTestState, setCount, level,
 
     s3.upload(params, function (err, data) {
       if (err) {
-        console.log(err);
+        console.log(err)
       } else {
-        console.log(data);
+        console.log(data)
       }
     })
-    // Resets videoBlob
+    // Resets hooks
     setVideoBlob(null)
     setRecordedVideo(null)
-    getCameraPermission()
+    // If there aren't any more questions, mark the test
+    // as finished
+    if (count < total) {
+      setCount(count + 1)
+      getCameraPermission()
+    }
+    else {
+      setTestState("finished")
+    }
   }
 
   if (level == "beginner") {
