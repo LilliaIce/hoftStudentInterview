@@ -4,7 +4,7 @@ import RecorderText from './RecorderText.jsx'
 
 export default function VideoRecorder({recordingStatus, setRecordingStatus, 
   answerDuration, setVideoBlob, setRecordedVideo, recordedVideo, getCameraPermission, 
-  permission, stream, liveVideoFeed}) {
+  setPermission, permission, stream, liveVideoFeed}) {
   const [secondsLeft, setSecondsLeft] = useState(null)
   const [videoChunks, setVideoChunks] = useState([])
   const mediaRecorder = useRef(null)
@@ -24,7 +24,6 @@ export default function VideoRecorder({recordingStatus, setRecordingStatus,
       if (event.data.size === 0) return
       // adds event.data to the localVideoChunks array
       localVideoChunks.push(event.data)
-      alert(localVideoChunks)
     }
     // gets the time the recording started and
     // sets secondsLeft to the required answer duration

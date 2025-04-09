@@ -74,6 +74,7 @@ export default function BeginnerQuestions({count, handleSubmit, setVideoBlob,
       videoLink={videoSources[count-1]}
       />
       <p>{extraContentMap[count]}</p>
+      <p className="videoText">Please give the video and recorder time to load.</p>
       <VideoRecorder
         recordingStatus={recordingStatus}
         setRecordingStatus={setRecordingStatus}

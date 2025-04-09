@@ -29,7 +29,6 @@ export default function QuestionVideo({videoLink}) {
             type="video/mp4"
           />
         </button>
-        <p className="videoText">Please give the video time to load.</p>
       </div>
   )
 }

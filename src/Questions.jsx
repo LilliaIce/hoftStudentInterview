@@ -83,7 +83,7 @@ export default function Questions({count, setTestState, setCount, level,
     // AnswerVideos/lastName_firstName_email/date/ under the
     // name Answer_n_time_level
     let timestamp = getCurrentTime()
-    const fileName = `Answer_${count + 1}_${timestamp}_${level}.mp4`;
+    const fileName = `Answer_${count}_${timestamp}_${level}.mp4`;
     const file = new File([videoBlob], fileName, { type: "video/mp4" });
     const dateStamp = new Date().toLocaleDateString().replace(/\//g, ".");
     const params = {
@@ -101,6 +101,7 @@ export default function Questions({count, setTestState, setCount, level,
         console.log(data)
       }
     })
+
     // Resets hooks
     setVideoBlob(null)
     setRecordedVideo(null)
@@ -108,6 +109,7 @@ export default function Questions({count, setTestState, setCount, level,
     // as finished
     if (count < total) {
       setCount(count + 1)
+      setPermission(false)
       getCameraPermission()
     }
     else {
@@ -127,6 +129,7 @@ export default function Questions({count, setTestState, setCount, level,
           getCameraPermission={getCameraPermission}
           recordedVideo={recordedVideo}
           recordingStatus={recordingStatus}
+          setPermission={setPermission}
           permission={permission}
           stream={stream}
           liveVideoFeed={liveVideoFeed}
@@ -146,6 +149,7 @@ export default function Questions({count, setTestState, setCount, level,
           getCameraPermission={getCameraPermission}
           recordedVideo={recordedVideo}
           recordingStatus={recordingStatus}
+          setPermission={setPermission}
           permission={permission}
           stream={stream}
           liveVideoFeed={liveVideoFeed}
@@ -165,6 +169,7 @@ export default function Questions({count, setTestState, setCount, level,
           getCameraPermission={getCameraPermission}
           recordedVideo={recordedVideo}
           recordingStatus={recordingStatus}
+          setPermission={setPermission}
           permission={permission}
           stream={stream}
           liveVideoFeed={liveVideoFeed}
