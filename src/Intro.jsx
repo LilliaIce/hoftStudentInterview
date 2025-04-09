@@ -55,6 +55,7 @@ export default function Intro({setTestState, setLevel, firstName, lastName, emai
     let lName = document.getElementById("lName")
     if (check.checked) {
       lName.disabled = true
+      lName.value = ""
     }
     else {
       lName.disabled = false
